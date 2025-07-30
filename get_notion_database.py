@@ -10,6 +10,16 @@ class GetNotionDatabase:
         database_id (str): 取得するデータベースのID
         notion_version (str): Notion APIのバージョン（デフォルトは"2022-06-28"）
 
+    Methods:
+        get_data() -> dict: データベースの全データをJSON形式で取得する
+        notion_to_dataframe() -> pd.DataFrame: データベースのデータをDataFrameに変換する
+        notion_to_excel(): データベースのデータをExcelファイルで出力する
+
+    Example:
+        >>> # インスタンス生成
+        >>> ins = GetNotionDatabase("your_token", "your_database_id")
+        >>> ins.notion_to_excel("output.xlsx")  # Excelファイルに出力
+
     Remarks:
         - 下記のプロパティの型以外は正しく取得できない可能性があります。:
             - title
@@ -25,7 +35,12 @@ class GetNotionDatabase:
         - Notionのバージョンリスト: https://developers.notion.com/page/changelog
     """
 
-    def __init__(self, token, database_id, notion_version="2022-06-28"):
+    def __init__(
+            self,
+            token: str,
+            database_id: str,
+            notion_version: str = "2022-06-28"
+    ):
         self.token = token
         self.database_id = database_id
         self.notion_version = notion_version
@@ -37,13 +52,13 @@ class GetNotionDatabase:
         }
 
     # 全データをjson形式で取得するメソッド
-    def get_data(self):
+    def get_data(self) -> dict:
         response = requests.post(self.url, headers=self.headers)
         data = response.json()
         return data
 
     # NotionのデータベースをDataflameに変換するメソッド
-    def notion_to_dataframe(self):
+    def notion_to_dataframe(self) -> pd.DataFrame:
         data = self.get_data()
         # 各行を処理
         rows = []
