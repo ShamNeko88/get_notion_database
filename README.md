@@ -1,4 +1,7 @@
 # Notion上のデータベースのデータを取得するモジュール
+Notionを操作するPython製GUIアプリ作ってます。
+とりあえず簡単なGUIツールをリリースしました。[こちら](https://github.com/ShamNeko88/notion_tools/releases/tag/ver.1.0.0)
+
 
 ## 使い方
 - ディレクトリ構成（共通）
