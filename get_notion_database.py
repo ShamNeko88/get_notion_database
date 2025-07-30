@@ -50,6 +50,14 @@ class GetNotionDatabase:
             "Content-Type": "application/json",
             "Notion-Version": self.notion_version,
         }
+        # 接続確認
+        if not self.check_connection():
+            raise ConnectionError("Notion APIへの接続に失敗しました。トークンやデータベースIDを確認してください。")
+
+    # 接続確認メソッド
+    def check_connection(self) -> bool:
+        response = requests.post(self.url, headers=self.headers)
+        return response.status_code == 200
 
     # 全データをjson形式で取得するメソッド
     def get_data(self) -> dict:
